@@ -179,7 +179,7 @@ class BacktestEngine:
         cagr=((fin/init)**(1/max(ny,0.01))-1)*100
         bh=(data['Close'].iloc[-1]/data['Close'].iloc[0]-1)*100
         vol=ret.std()*np.sqrt(252)*100
-        dd=(eq.iloc[:,0]-eq.iloc[:,0].cummax())/eq.iloc[:,0].cummax()*100
+        dd=(eq.values-eq.cummax())/eq.cummax()*100
         mdd=dd.min();avg_dd=dd[dd<0].mean() if (dd<0).any() else 0
         sh=(ret.mean()/ret.std()*np.sqrt(252)) if ret.std()>0 else 0
         neg=ret[ret<0];so=(ret.mean()/neg.std()*np.sqrt(252)) if len(neg)>1 else 0
@@ -233,7 +233,7 @@ class BacktestEngine:
     def _annual(self,eq,ret,trades):
         rows=[]
         for yr in sorted(eq.index.year.unique()):
-            m=eq.index.year==yr;ey=eq.iloc[:,0][m];ry=ret[m]
+            m=eq.index.year==yr;ey=eq[m];ry=ret[m]
             if len(ey)<2: continue
             yr_r=(ey.iloc[-1]/ey.iloc[0]-1)*100
             dd=(ey-ey.cummax())/ey.cummax()*100;mdd=dd.min()
