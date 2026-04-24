@@ -10,7 +10,7 @@ def header():
     print()
     print(c("╔══════════════════════════════════════════════════════╗",C))
     print(c("║       TradingLab Pro v2.0 — Instalador               ║",C))
-    print(c("║  Bar-by-Bar · MTF · Fundamentales · IA · ML · Replay ║",C))
+    print(c("║  Bar-by-Bar · MTF · Fundamentales · IA              ║",C))
     print(c("╚══════════════════════════════════════════════════════╝",C))
     print()
 
