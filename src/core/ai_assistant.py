@@ -1,6 +1,6 @@
 """TradingLab Pro — AI Assistant (Claude API integration)."""
 from __future__ import annotations
-import json, re
+import re
 import requests
 
 SYSTEM_PROMPT = """Eres TradingLab AI, un asistente experto en trading algorítmico, análisis técnico y backtesting integrado en TradingLab Pro.
