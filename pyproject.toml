@@ -1,0 +1,35 @@
+[project]
+name = "tradinglab-pro"
+version = "2.0"
+description = "Desktop algorithmic trading research platform"
+requires-python = ">=3.10"
+dependencies = [
+    "PyQt6>=6.6.0",
+    "yfinance>=0.2.36",
+    "pandas>=2.1.0",
+    "numpy>=1.26.0",
+    "matplotlib>=3.8.0",
+    "scipy>=1.11.0",
+    "requests>=2.31.0",
+]
+
+[project.scripts]
+tradinglab-pro = "main:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
