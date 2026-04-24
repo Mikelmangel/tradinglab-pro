@@ -25,7 +25,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install PyQt6 yfinance pandas numpy matplotlib scipy requests
-          pip install pytest pytest-cov ruff mypy
+          pip install pytest pytest-cov ruff mypy types-requests
 
       - name: Lint with Ruff
         run: ruff check src/ --output-format=github

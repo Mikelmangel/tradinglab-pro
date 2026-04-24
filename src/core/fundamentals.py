@@ -57,7 +57,7 @@ def get_fundamentals(symbol: str) -> dict | None:
         t=yf.Ticker(symbol)
         info=t.info
         if not info: return None
-        result={}
+        result: dict[str, dict[str, str]] = {}
         for cat,fields in FUNDAMENTAL_FIELDS.items():
             result[cat]={}
             for f in fields:

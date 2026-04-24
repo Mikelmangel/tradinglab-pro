@@ -30,12 +30,12 @@ Sé conciso, práctico y directo. Responde en español."""
 class AIAssistant:
     def __init__(self, api_key: str = ""):
         self.api_key = api_key
-        self.history = []
+        self.history: list[dict[str, object]] = []
 
     def set_api_key(self, key: str):
         self.api_key = key
 
-    def set_context(self, metrics: dict = None, annual: dict = None, code: str = ""):
+    def set_context(self, metrics: dict[str, object] | None = None, annual: list[dict[str, object]] | None = None, code: str = ""):
         """Inject current backtest context."""
         ctx_parts = []
         if metrics:
@@ -86,7 +86,8 @@ class AIAssistant:
                 self.history.pop()
                 return f"❌ Error API ({resp.status_code}): {err}"
 
-            content = resp.json()['content'][0]['text']
+            raw = resp.json()
+            content: str = raw['content'][0]['text']
             self.history.append({"role": "assistant", "content": content})
             return content
         except requests.exceptions.Timeout:
