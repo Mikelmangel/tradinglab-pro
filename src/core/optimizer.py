@@ -123,7 +123,7 @@ class WalkForwardTester:
 
 class MonteCarloSimulator:
     def run(self,pnl_pcts,initial_capital,n_simulations=500):
-        if len(pnl_pcts)<3: return None
+        if n_simulations <= 0 or len(pnl_pcts) < 3: return None
         pnl=np.array(pnl_pcts)/100
         paths=[]
         for _ in range(n_simulations):

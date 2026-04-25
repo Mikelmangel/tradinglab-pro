@@ -300,13 +300,13 @@ class BacktestTab(QWidget):
         self._sa(ax1); self._sa(ax2)
         for path in res['equity_paths'][:100]: ax1.plot(path,color=C['blue'],alpha=0.04,lw=0.5)
         paths=res['equity_paths'][:500]
-        if paths:
-            ml=max(len(p) for p in paths)
-            padded=np.array([p+[p[-1]]*(ml-len(p)) for p in paths])
-            ax1.plot(np.percentile(padded,5,axis=0),color=C['red'],lw=1.5,label='P5')
-            ax1.plot(np.percentile(padded,50,axis=0),color=C['yellow'],lw=1.5,label='P50')
-            ax1.plot(np.percentile(padded,95,axis=0),color=C['green'],lw=1.5,label='P95')
-            ax1.axhline(self.capital.value(),color=C['surface1'],lw=0.7,ls='--')
+        if not paths: return
+        ml = max(len(p) for p in paths)
+        padded = np.array([np.pad(p, (0, ml - len(p)), constant_values=p[-1]) for p in paths])
+        ax1.plot(np.percentile(padded,5,axis=0),color=C['red'],lw=1.5,label='P5')
+        ax1.plot(np.percentile(padded,50,axis=0),color=C['yellow'],lw=1.5,label='P50')
+        ax1.plot(np.percentile(padded,95,axis=0),color=C['green'],lw=1.5,label='P95')
+        ax1.axhline(self.capital.value(),color=C['surface1'],lw=0.7,ls='--')
         ax1.legend(facecolor=C['surface0'],labelcolor=C['text'],fontsize=7)
         ax1.set_title('Monte Carlo — 500 sim.',color=C['text'],fontsize=10,fontweight='bold')
         ax1.yaxis.tick_right()
