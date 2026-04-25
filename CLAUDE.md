@@ -9,6 +9,10 @@ PyQt6 GUI, Python backend, Claude AI assistant.
 
 **Repo:** https://github.com/Mikelmangel/tradinglab-pro
 
+**WORKING DIRECTORY:** `/home/miguel-angel/Escritorio/Proyectos/tlpro`
+**ALL AGENTS MUST operate within this directory.** Every Agent invocation, file edit, and command execution happens here.
+When invoking agents, include: `"cd /home/miguel-angel/Escritorio/Proyectos/tlpro && [task]"`.
+
 ---
 
 ## 2. Routing — Auto-Delegate Table
@@ -28,6 +32,9 @@ PyQt6 GUI, Python backend, Claude AI assistant.
 | no keyword match / unsure | `tradinglab-lead` | 🔴 Red |
 
 **If the task requires multiple agents:** invoke `tradinglab-lead` with full context and let it orchestrate.
+
+**CRITICAL — Working directory for ALL agents:**
+`cd /home/miguel-angel/Escritorio/Proyectos/tlpro` must precede every command, Agent invocation, and file path reference.
 
 ---
 
