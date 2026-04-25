@@ -7,11 +7,11 @@ from src.styles.theme import C
 
 class DownloadThread(QThread):
     done=pyqtSignal(str,object); progress=pyqtSignal(str)
-    def __init__(self,dm,sym,start,end,interval):
-        super().__init__(); self.dm=dm;self.sym=sym;self.start=start;self.end=end;self.interval=interval
+    def __init__(self,dm,sym,start_date,end_date,interval):
+        super().__init__(); self.dm=dm;self.sym=sym;self.start_date=start_date;self.end_date=end_date;self.interval=interval
     def run(self):
         self.progress.emit(f"Descargando {self.sym}...")
-        df=self.dm.download(self.sym,self.start,self.end,self.interval)
+        df=self.dm.download(self.sym,self.start_date,self.end_date,self.interval)
         self.done.emit(self.sym,df)
 
 class DataTab(QWidget):
@@ -76,10 +76,12 @@ class DataTab(QWidget):
         sym=self.sym.text().strip().upper()
         if not sym: return
         self.dl_btn.setEnabled(False); self.prog.setVisible(True); self.prog.setRange(0,0)
-        self._thread=DownloadThread(self.dm,sym,
-            self.start.date().toString("yyyy-MM-dd"),
-            self.end.date().toString("yyyy-MM-dd"),
-            self.interval.currentText())
+        self._thread=DownloadThread(
+            dm=self.dm,
+            sym=sym,
+            start_date=self.start.date().toString("yyyy-MM-dd"),
+            end_date=self.end.date().toString("yyyy-MM-dd"),
+            interval=self.interval.currentText())
         self._thread.progress.connect(lambda m: self.status.setText(m))
         self._thread.done.connect(self._on_done)
         self._thread.start()
